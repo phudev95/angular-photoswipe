@@ -36,7 +36,7 @@
 
         $http
           .get(scope.template, { cache: $templateCache })
-          .then(function(result) {
+          .then(function (result) {
             var template = angular.element(result.data);
             iElement.append($compile(template)(scope));
           });
@@ -50,15 +50,15 @@
           var pswpElement = document.querySelectorAll('.pswp')[0];
 
           if (angular.isUndefined(scope.options.getThumbBoundsFn) &&
-              angular.isDefined(scope.slideSelector)) {
+            angular.isDefined(scope.slideSelector)) {
 
             scope.options = angular.merge({}, {
 
-              getThumbBoundsFn: function(index) {
+              getThumbBoundsFn: function (index) {
                 var thumbnail = document.querySelectorAll(scope.slideSelector)[index];
                 var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
                 var rect = thumbnail.getBoundingClientRect();
-                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
               }
 
             }, scope.options);
@@ -86,16 +86,17 @@
             if (nVal) {
               startGallery();
             }
-          } else if (!nVal && scope.gallery) {
-            scope.gallery.close();
-            scope.gallery = null;
+            else if (!nVal && scope.gallery) {
+              scope.gallery.close();
+              scope.gallery = null;
+            }
           }
         });
 
-        scope.safeApply = function(fn) {
+        scope.safeApply = function (fn) {
           var phase = this.$root.$$phase;
-          if(phase == '$apply' || phase == '$digest') {
-            if(fn && (typeof(fn) === 'function')) {
+          if (phase == '$apply' || phase == '$digest') {
+            if (fn && (typeof (fn) === 'function')) {
               fn();
             }
           } else {
@@ -111,11 +112,11 @@
   }
 
   if (typeof define === 'function' && define.amd) {
-		define(['angular', 'photoswipe'], ngPhotoswipe);
-	} else if (typeof module !== 'undefined' && module && module.exports) {
-		ngPhotoswipe(angular, require('photoswipe'));
-		module.exports = 'ngPhotoswipe';
-	} else {
-		ngPhotoswipe(angular, (typeof global !== 'undefined' ? global : window).Photoswipe);
-	}
+    define(['angular', 'photoswipe'], ngPhotoswipe);
+  } else if (typeof module !== 'undefined' && module && module.exports) {
+    ngPhotoswipe(angular, require('photoswipe'));
+    module.exports = 'ngPhotoswipe';
+  } else {
+    ngPhotoswipe(angular, (typeof global !== 'undefined' ? global : window).Photoswipe);
+  }
 })();
